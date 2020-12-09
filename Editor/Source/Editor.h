@@ -72,13 +72,35 @@ private:
 		m_scene->Render(*m_sceneRenderTarget, m_camera.GetCamera(), delta);
 
 		if (m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity) {
+			// Draw collider debug
+			if (m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.HasComponent<Crimson::BoxColliderComponent>()) {
+				auto bc = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::BoxColliderComponent>();
+				auto tc = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::TransformComponent>();
+				auto mesh = m_scene->m_assetManager.LoadMesh("Cube");
+
+				Crimson::Transform transform;
+				transform.position = tc.position;
+				transform.rotation = tc.rotation;
+				transform.scale = bc.extents;
+
+				if (mesh && tc.active) {
+					Crimson::Renderer::DrawWireframe(*m_camera.GetCamera(), transform.GetModel(), *mesh);
+				}
+			}
+
 			if (m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.HasComponent<Crimson::MeshFilterComponent>()) {
 				auto mc = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::MeshFilterComponent>();
+				auto& tc = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::TransformComponent>();
 				auto mesh = m_scene->m_assetManager.LoadMesh(mc.path);
-				auto& transform = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::TransformComponent>();
-				if (mesh && transform.active) {
+
+				Crimson::Transform transform;
+				transform.position = tc.position;
+				transform.rotation = tc.rotation;
+				transform.scale = tc.scale + 0.1f;
+
+				if (mesh && tc.active) {
 					Crimson::Renderer::ClearDepth();
-					Crimson::Renderer::DrawWireframe(*m_camera.GetCamera(), m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::TransformComponent>().GetTransform(), *mesh);
+					Crimson::Renderer::DrawWireframe(*m_camera.GetCamera(), transform.GetModel(), *mesh, glm::vec3(0.5f, 0.0f, 0.5f));
 				}
 			}
 		}

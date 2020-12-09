@@ -118,14 +118,14 @@ namespace Crimson {
 		mesh.Draw();
 	}
 
-	void Renderer::DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh) {
+	void Renderer::DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh, const glm::vec3& color) {
 		auto& m = instance();
 
 		m.m_wireframeShader->Bind();
 		m.m_wireframeShader->SetMat4("u_model", transform);
 		m.m_wireframeShader->SetMat4("u_view", camera.GetView());
 		m.m_wireframeShader->SetMat4("u_projection", camera.projection);
-		m.m_wireframeShader->SetVec3("u_color", glm::vec3(0.0f, 1.0f, 0.0f));
+		m.m_wireframeShader->SetVec3("u_color", color);
 
 		m.m_drawCallsCount++;
 

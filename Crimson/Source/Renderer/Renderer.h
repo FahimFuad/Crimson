@@ -50,7 +50,7 @@ namespace Crimson {
 		static void ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transform, std::vector<Mesh*>& meshes);
 		static void ShaderPass(Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material);
 		static void Draw(Mesh& mesh);
-		static void DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh);
+		static void DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh, const glm::vec3& color = glm::vec3(0.0f, 1.0f, 0.0f));
 
 		static void ClearDepth();
 
