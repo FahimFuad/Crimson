@@ -2,11 +2,15 @@
 
 #include <imgui.h>
 
-#include "Logger.h"
-#include "AssetManager.h"
 #include "Layer.h"
 #include "Transform.h"
 #include "Input.h"
+#include "Logger.h"
+
+// Asset Management
+#include "AssetManager.h"
+#include "DefaultAssets/StandardShader.h"
+#include "DefaultAssets/ParticleShader.h"
 
 // Rendering
 #include "Renderer/Renderer.h"

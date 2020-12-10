@@ -1,6 +1,7 @@
 #pragma once
 
-static const char* StandardShader = R"(
+namespace Crimson {
+	static const char* StandardShader = R"(
 #begin VERTEX
 
 #version 330 core
@@ -30,7 +31,7 @@ void main() {
 
 #version 330 core
 
-out vec4 FragColor;
+out vec4 a_fragColor;
 
 uniform int u_ambientLightCount = 0;
 uniform int u_pointLightCount = 0;
@@ -105,7 +106,6 @@ float CalculateDirectionalShadow(DirectionalLight light) {
 		}
 	}
 	shadow /= 9.0;
-	//float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
 
 	if (projCoords.z > 1.0) {
 		shadow = 0.0;
@@ -176,15 +176,15 @@ void main() {
 
 	vec3 diffuseColor = pow(texture(u_albedo, v_texCoords).rgb, vec3(u_gamma));
 
-	FragColor = vec4(diffuseColor, 1.0f) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
+	a_fragColor = vec4(diffuseColor, 1.0f) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
 
-	FragColor.rgb = pow(FragColor.rgb, vec3(1.0/u_gamma));
+	a_fragColor.rgb = pow(a_fragColor.rgb, vec3(1.0/u_gamma));
 }
 
 #end FRAGMENT
-)";
+	)";
 
-static const char* outlineShader = R"(
+	static const char* outlineShader = R"(
 #begin VERTEX
 #version 330 core
 
@@ -212,4 +212,5 @@ void main() {
 }
 
 #end FRAGMENT
-)";
+	)";
+}

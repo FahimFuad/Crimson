@@ -10,9 +10,7 @@
 #include "../FontAwesome.h"
 
 
-static const char* defaultScript = R"(#include "Crimson"
-
-class Script : CrimsonBehaviour {
+static const char* defaultScript = R"(class MyBehaviour : CrimsonBehaviour {
 	// Called on the first frame
 	void OnInit() {
 
@@ -59,10 +57,10 @@ void main() {
 
 #version 330 core
 
-out vec4 a_fragPos;
+out vec4 a_fragColor;
 
 void main() {
-	a_fragPos = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	a_fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 #end FRAGMENT
@@ -228,14 +226,40 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 				}
 			}
 
-			if (ImGui::MenuItem("Shader")) {
+			if (ImGui::MenuItem("Shader (Basic)")) {
 				const char* const acceptedExtensions[] = {"*.glsl"};
-				const char* file = tinyfd_saveFileDialog("New Shader", "Data/NewShader.glsl", 1, acceptedExtensions, "OpenGL Shader Files");
+				const char* file = tinyfd_saveFileDialog("New Shader", "Data/NewBasicShader.glsl", 1, acceptedExtensions, "OpenGL Shader Files");
 
 				if (file) {
 					FILE* handle = fopen(file, "w");
 					if (handle) {
 						fprintf(handle, "%s", defaultShader);
+					}
+					fclose(handle);
+				}
+			}
+
+			if (ImGui::MenuItem("Shader (Lit)")) {
+				const char* const acceptedExtensions[] = {"*.glsl"};
+				const char* file = tinyfd_saveFileDialog("New Shader", "Data/NewLitShader.glsl", 1, acceptedExtensions, "OpenGL Shader Files");
+
+				if (file) {
+					FILE* handle = fopen(file, "w");
+					if (handle) {
+						fprintf(handle, "%s", Crimson::StandardShader);
+					}
+					fclose(handle);
+				}
+			}
+
+			if (ImGui::MenuItem("Shader (Particle System)")) {
+				const char* const acceptedExtensions[] = {"*.glsl"};
+				const char* file = tinyfd_saveFileDialog("New Shader", "Data/NewParticleSystemShaderShader.glsl", 1, acceptedExtensions, "OpenGL Shader Files");
+
+				if (file) {
+					FILE* handle = fopen(file, "w");
+					if (handle) {
+						fprintf(handle, "%s", Crimson::ParticleShader);
 					}
 					fclose(handle);
 				}

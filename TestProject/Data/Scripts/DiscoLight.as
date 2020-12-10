@@ -1,5 +1,3 @@
-#include "Crimson"
-
 class DiscoLight : CrimsonBehaviour {
 	float changeRate = 2.0f;
 
