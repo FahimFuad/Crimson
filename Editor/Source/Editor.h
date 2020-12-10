@@ -79,7 +79,7 @@ private:
 				auto mesh = m_scene->m_assetManager.LoadMesh("Cube");
 
 				Crimson::Transform transform;
-				transform.position = tc.position;
+				transform.position = tc.worldPosition;
 				transform.rotation = tc.rotation;
 				transform.scale = bc.extents;
 
@@ -94,7 +94,7 @@ private:
 				auto mesh = m_scene->m_assetManager.LoadMesh(mc.path);
 
 				Crimson::Transform transform;
-				transform.position = tc.position;
+				transform.position = tc.worldPosition;
 				transform.rotation = tc.rotation;
 				transform.scale = tc.scale + 0.1f;
 
