@@ -147,6 +147,12 @@ void EditorLayer::SaveAs() {
 	if (file) {
 		m_currentSavePath = file;
 
+		std::replace(m_currentSavePath.begin(), m_currentSavePath.end(), '\\', '/');
+		size_t pos = m_currentSavePath.find(m_workingDir);
+		if (pos != std::string::npos) {
+			m_currentSavePath.erase(pos, m_workingDir.length());
+		}
+
 		Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 		sceneSerialiser.SerialiseText(file);
 	}

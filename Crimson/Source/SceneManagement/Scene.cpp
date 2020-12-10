@@ -77,7 +77,6 @@ namespace Crimson {
 
 		m_registry.on_construct<PhysicsComponent>().connect<&Scene::PhysicsComponentCreate>(this);
 		m_registry.on_destroy<PhysicsComponent>().connect<&PhysicsComponentDestroy>();
-		//m_registry.on_construct<ScriptComponent>().connect<&Scene::ScriptComponentCreate>(this);
 		m_registry.on_destroy<ScriptComponent>().connect<&Scene::ScriptComponentDestroy>(this);
 
 		m_registry.on_construct<ParticleSystemComponent>().connect<&ParticleSystemCreate>();
